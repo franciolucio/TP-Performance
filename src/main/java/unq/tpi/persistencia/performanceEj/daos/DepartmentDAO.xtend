@@ -16,10 +16,22 @@ class DepartmentDAO {
 		val session = SessionManager.getSession()
 		session.get(Department, num) as Department
 	}
-
+	
 	def getAll() {
 		val session = SessionManager.getSession()
 		session.createCriteria(Department).list() as List<Department>
+	}
+	
+	def getSalariesByDepartment(String number) {
+		val session = SessionManager.getSession()
+		session.createQuery("select concat(employees.firstName, ' ', employees.lastName), 
+							 salary.amount, 
+							 titles from Department as department 
+							 join department.employees as employees 
+							 join employees.salaries as salary 
+							 join employees.titles as titles 
+							 where department.code = :number and salary.to = '9999-01-01'")
+				.setParameter("number", number).list() as List<Object[]>;
 	}
 
 }
