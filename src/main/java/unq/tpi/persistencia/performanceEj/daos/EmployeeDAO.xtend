@@ -25,8 +25,8 @@ class EmployeeDAO {
 	}
 	
 	def getPrimerosDiez() {
-		val session = SessionManager.getSession()
-		session.createQuery("from Employee").setMaxResults(10).list()as List<Employee> 
+		val session = SessionManager.session
+		session.createQuery("select s.employee from Salary as s where s.to = '9999-01-01' order by s.amount desc").setMaxResults(10).list() as List<Employee>
 	}
 
 }

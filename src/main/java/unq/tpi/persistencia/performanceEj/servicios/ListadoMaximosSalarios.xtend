@@ -1,8 +1,6 @@
 package unq.tpi.persistencia.performanceEj.servicios
 
-import java.util.Comparator
 import unq.tpi.persistencia.performanceEj.daos.EmployeeDAO
-import unq.tpi.persistencia.performanceEj.model.Employee
 
 class ListadoMaximosSalarios extends AbstractListado {
 
@@ -12,11 +10,7 @@ class ListadoMaximosSalarios extends AbstractListado {
 
 	override def doListado() throws Exception {
 		val empleados = new EmployeeDAO().primerosDiez
-		empleados.sort(new Comparator<Employee>() {
-			override def compare(Employee o1, Employee o2) {
-				o2.salary.compareTo(o1.salary)
-			}
-		})
+		
 		
 		// Imprime el sueldo de los 10 primeros empleados en la coleccion		
 		addColumn("Nombre").addColumn("Sueldo").newLine()
